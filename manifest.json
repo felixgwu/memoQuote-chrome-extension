@@ -17,9 +17,7 @@
     "permissions": [
         "contextMenus",
         "tabs",
-        "http://*/",
-        "https://*/",
         "cookies",
-        "http://localhost"
+        "http://localhost/"
     ]
 }
