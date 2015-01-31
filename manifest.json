@@ -5,14 +5,22 @@
     "description": "Chrome Extension of memoQuote",
     "version": "0.1",
 
-//  "browser_action": {
-//    "default_icon": "icon.png",
-//    "default_popup": "popup.html"
-//  },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+
+    "browser_action": {
+      "default_icon": "icon19.png",
+      "default_popup": "popup.html"
+    },
 
     "background": {
         "scripts": ["addQuote.js"]
     },
+
+    "options_page": "options.html",
 
     "permissions": [
         "contextMenus",
