@@ -33,17 +33,10 @@
             "matches": ["http://*/*", "https://*/*"],
             "css": [
                 "static/css/scriptReset.css",
-                "static/css/detail_modal.css",
-                "static/Semantic-UI-1.6.2/components/button.css",
-                "static/Semantic-UI-1.6.2/components/modal.css",
-                "static/Semantic-UI-1.6.2/components/input.css",
-                "static/Semantic-UI-1.6.2/components/dimmer.css",
-                "static/Semantic-UI-1.6.2/components/form.css",
-                "static/Semantic-UI-1.6.2/components/transition.css"
+                "static/css/detail_modal.css"
             ],
             "js": [
                 "static/js/jquery-2.1.3.min.js", 
-                "static/Semantic-UI-1.6.2/semantic.min.js",
                 "static/js/detail_modal.js"
             ]
         }

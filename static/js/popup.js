@@ -18,7 +18,6 @@ $(document).ready(function() {
         return color_list[((this.hashCode() % color_list.length) + color_list.length) % color_list.length];
     }
 
-    var url = 'http://localhost:8000';
 
     $('.ui.accordion')
         .accordion()
@@ -28,8 +27,19 @@ $(document).ready(function() {
       .checkbox()
     ;
 
+    chrome.storage.local.get({
+        setting_options: {
+            url: 'http://localhost:8000',
+            mode: 'fast',
+            autoUrl: true
+        },
+        quote_options: {}
+    }, function(items){
+        var url = items.setting_options.url;
+        console.log(url);
+        $('#myquote-button').attr('href', url + '/quotes/');
+    }); 
 
-    $('#myquote-button').attr('href', url + '/quotes/');
 
     $('#option-form .clear').on('click', function(){
         $(':input','#option-form')
