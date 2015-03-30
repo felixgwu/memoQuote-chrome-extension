@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('<div class="ui modal" id="speaker"><div class="content"><form class="ui form"><div class="field"><label>Speaker</label><input type="text" name="speaker" placeholder="Speaker"></div><input type="submit" class="ui right floated submit button"></input></form></div></div>').appendTo('body');
+    $('<div id="#mq-container"><div class="ui modal" id="speaker"><div class="content"><form class="ui form"><div class="field"><label>Speaker</label><input type="text" name="speaker" placeholder="Speaker"></div><input type="submit" class="ui right floated submit button"></input></form></div></div></div>').appendTo('body');
     $('#speaker').modal({dimPage: false});
     $('#speaker').parent().attr('id', 'script');
 

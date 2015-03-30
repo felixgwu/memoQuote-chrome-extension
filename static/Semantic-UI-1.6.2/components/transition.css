@@ -19,7 +19,7 @@
   Some transitions adapted from Animate CSS
   https://github.com/daneden/animate.css
 */
-.transition {
+#mq-container .transition {
   -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
   -webkit-animation-duration: 500ms;
@@ -37,7 +37,7 @@
 
 
 /* Animating */
-.animating.transition {
+#mq-container .animating.transition {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   -webkit-transform: translateZ(0);
@@ -46,20 +46,20 @@
 }
 
 /* Loading */
-.loading.transition {
+#mq-container .loading.transition {
   position: absolute;
   top: -99999px;
   left: -99999px;
 }
 
 /* Hidden */
-.hidden.transition {
+#mq-container .hidden.transition {
   display: none;
   visibility: hidden;
 }
 
 /* Visible */
-.visible.transition {
+#mq-container .visible.transition {
   display: block !important;
   visibility: visible !important;
   -webkit-backface-visibility: hidden;
@@ -69,7 +69,7 @@
 }
 
 /* Disabled */
-.disabled.transition {
+#mq-container .disabled.transition {
   -webkit-animation-play-state: paused;
           animation-play-state: paused;
 }
@@ -79,7 +79,7 @@
           Variations
 *******************************/
 
-.looping.transition {
+#mq-container .looping.transition {
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
 }
@@ -100,25 +100,25 @@
     Emphasis
 ---------------*/
 
-.flash.transition {
+#mq-container .flash.transition {
   -webkit-animation-name: flash;
           animation-name: flash;
 }
-.shake.transition {
+#mq-container .shake.transition {
   -webkit-animation-name: shake;
           animation-name: shake;
 }
-.bounce.transition {
+#mq-container .bounce.transition {
   -webkit-animation-name: bounce;
           animation-name: bounce;
 }
-.tada.transition {
+#mq-container .tada.transition {
   -webkit-animation-name: tada;
           animation-name: tada;
 }
 
 /* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
-.pulse.transition {
+#mq-container .pulse.transition {
   -webkit-animation-name: pulse;
           animation-name: pulse;
 }
@@ -329,28 +329,28 @@
      Slide
 ---------------*/
 
-.slide.down.transition.in {
+#mq-container .slide.down.transition.in {
   -webkit-animation-name: slideIn;
           animation-name: slideIn;
   transform-origin: 50% 0%;
   -ms-transform-origin: 50% 0%;
   -webkit-transform-origin: 50% 0%;
 }
-.slide.down.transition.out {
+#mq-container .slide.down.transition.out {
   -webkit-animation-name: slideOut;
           animation-name: slideOut;
   -webkit-transform-origin: 50% 0%;
       -ms-transform-origin: 50% 0%;
           transform-origin: 50% 0%;
 }
-.slide.up.transition.in {
+#mq-container .slide.up.transition.in {
   -webkit-animation-name: slideIn;
           animation-name: slideIn;
   -webkit-transform-origin: 50% 100%;
       -ms-transform-origin: 50% 100%;
           transform-origin: 50% 100%;
 }
-.slide.up.transition.out {
+#mq-container .slide.up.transition.out {
   -webkit-animation-name: slideOut;
           animation-name: slideOut;
   -webkit-transform-origin: 50% 100%;
@@ -410,24 +410,24 @@
      Flips
 ---------------*/
 
-.flip.transition.in,
-.flip.transition.out {
+#mq-container .flip.transition.in,
+#mq-container .flip.transition.out {
   -webkit-perspective: 2000px;
           perspective: 2000px;
 }
-.horizontal.flip.transition.in {
+#mq-container .horizontal.flip.transition.in {
   -webkit-animation-name: horizontalFlipIn;
           animation-name: horizontalFlipIn;
 }
-.horizontal.flip.transition.out {
+#mq-container .horizontal.flip.transition.out {
   -webkit-animation-name: horizontalFlipOut;
           animation-name: horizontalFlipOut;
 }
-.vertical.flip.transition.in {
+#mq-container .vertical.flip.transition.in {
   -webkit-animation-name: verticalFlipIn;
           animation-name: verticalFlipIn;
 }
-.vertical.flip.transition.out {
+#mq-container .vertical.flip.transition.out {
   -webkit-animation-name: verticalFlipOut;
           animation-name: verticalFlipOut;
 }
@@ -538,27 +538,27 @@
       Fades
 ---------------*/
 
-.fade.transition.in {
+#mq-container .fade.transition.in {
   -webkit-animation-name: fadeIn;
           animation-name: fadeIn;
 }
-.fade.transition.out {
+#mq-container .fade.transition.out {
   -webkit-animation-name: fadeOut;
           animation-name: fadeOut;
 }
-.fade.up.transition.in {
+#mq-container .fade.up.transition.in {
   -webkit-animation-name: fadeUpIn;
           animation-name: fadeUpIn;
 }
-.fade.up.transition.out {
+#mq-container .fade.up.transition.out {
   -webkit-animation-name: fadeUpOut;
           animation-name: fadeUpOut;
 }
-.fade.down.transition.in {
+#mq-container .fade.down.transition.in {
   -webkit-animation-name: fadeDownIn;
           animation-name: fadeDownIn;
 }
-.fade.down.transition.out {
+#mq-container .fade.down.transition.out {
   -webkit-animation-name: fadeDownOut;
           animation-name: fadeDownOut;
 }
@@ -701,11 +701,11 @@
       Scale
 ---------------*/
 
-.scale.transition.in {
+#mq-container .scale.transition.in {
   -webkit-animation-name: scaleIn;
           animation-name: scaleIn;
 }
-.scale.transition.out {
+#mq-container .scale.transition.out {
   -webkit-animation-name: scaleOut;
           animation-name: scaleOut;
 }
@@ -764,18 +764,18 @@
      Drop
 ---------------*/
 
-.drop.transition {
+#mq-container .drop.transition {
   -webkit-transform-origin: top center;
       -ms-transform-origin: top center;
           transform-origin: top center;
   -webkit-animation-timing-function: cubic-bezier(0.34, 1.61, 0.7, 1);
           animation-timing-function: cubic-bezier(0.34, 1.61, 0.7, 1);
 }
-.drop.transition.in {
+#mq-container .drop.transition.in {
   -webkit-animation-name: dropIn;
           animation-name: dropIn;
 }
-.drop.transition.out {
+#mq-container .drop.transition.out {
   -webkit-animation-name: dropOut;
           animation-name: dropOut;
 }
@@ -834,20 +834,20 @@
      Browse
 ---------------*/
 
-.browse.transition.in {
+#mq-container .browse.transition.in {
   -webkit-animation-name: browseIn;
           animation-name: browseIn;
   -webkit-animation-timing-function: ease;
           animation-timing-function: ease;
 }
-.browse.transition.out,
-.browse.transition.out.left {
+#mq-container .browse.transition.out,
+#mq-container .browse.transition.out.left {
   -webkit-animation-name: browseOutLeft;
           animation-name: browseOutLeft;
   -webkit-animation-timing-function: ease;
           animation-timing-function: ease;
 }
-.browse.transition.out.right {
+#mq-container .browse.transition.out.right {
   -webkit-animation-name: browseOutRight;
           animation-name: browseOutRight;
   -webkit-animation-timing-function: ease;
