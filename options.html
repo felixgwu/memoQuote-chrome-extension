@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <title>memoQuote extension setting</title>
+    <style>
+        body{
+            padding: 10px;
+            width: 400px;
+        }
+        input[name="url"]{
+            width: 100%;
+        }
+    </style>
+</head> 
+<body>
+    memoQuote URL: ( e.g. http://memoquote.herokuapp.com )
+    <br>
+    <input type="text" name="url" value="http://localhost:8000">
+    <br> <br>
+
+    Mode:
+    <br>
+    <input type="radio" name="mode" value="fast" checked> Fast Mode
+    <br>
+    <input type="radio" name="mode" value="detail"> Detail Mode
+    <br> <br>
+
+    <label>
+        <input type="checkbox" name="autoUrl" checked>
+        Automatically add source URL
+    </label>
+    <br> <br> 
+
+    <!--
+    Fast Mode options:
+    <br>
+    <label>
+        <input type="checkbox" id="speaker">
+        speaker
+    </label>
+    <label>
+        <input type="checkbox" id="book">
+        book
+    </label>
+    <label>
+        <input type="checkbox" id="tags">
+        tags
+    </label>
+    <br> <br> 
+    -->
+
+
+    <br>
+    <div id="status"></div>
+    <button id="save">Save</button>
+
+    <script src="static/js/jquery-2.1.3.min.js"></script>
+    <script src="static/js/options.js"></script>
+</body>
+</html>
+
+

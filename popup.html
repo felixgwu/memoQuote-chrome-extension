@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Getting Started Extension's Popup</title>
+
+        <link href="static/Semantic-UI-1.6.2/semantic.min.css" rel="stylesheet">
+        <link href="static/css/popup.css" rel="stylesheet">
+    </head>
+    <body id="popup">
+        <div class="container">
+            <div id="option-form" class="ui form">
+                <div class="field">
+                    <label>Preserved</label>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" name="preserved" value="preserved">
+                        <label>preserved the setting after adding a quote.</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Public</label>
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" name="public" value="public">
+                        <label>Allow <b>anyone</b> to see this quote.</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Speaker</label>
+                    <input name="speaker" type="text" placeholder="Speaker" value="" maxlength="60">
+                </div>
+                <div class="field">
+                    <label>Tags</label>
+                    <div class="tag-search ui search">
+                        <div class="ui left icon input">
+                            <i class="tags icon"></i>
+                            <input class="prompt" id="option-tag-input" type="text" placeholder="Enter categories">
+                        </div>
+                        <div class="ui labels">
+                            <!--
+                                <a class="ui tiny label">test</a>
+                                <a class="ui tiny label">test</a>
+                                <a class="ui tiny label">test</a>
+                            -->
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Book/Source</label>
+                    <input name="book" type="text" placeholder="Book/Source" maxlength="100">
+                </div>
+                <div class="field">
+                    <label>Volume/More Information</label>
+                    <input name="volume" type="text" placeholder="Volume/More Information" maxlength="30">
+                </div>
+                <div class="field">
+                    <div class="ui black clear button">Clear</div>
+                </div>
+            </div>
+        
+            <a id="myquote-button" class="ui green button" target="_blank">Go to my quotes</a>
+        </div>
+        <script src="static/js/jquery-2.1.3.min.js"></script>
+        <script src="static/Semantic-UI-1.6.2/semantic.min.js"></script>
+        <script src="static/js/popup.js"></script>
+    </body>
+</html>
+

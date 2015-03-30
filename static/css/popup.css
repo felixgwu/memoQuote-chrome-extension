@@ -1,0 +1,20 @@
+body{
+    min-width: 400px;
+    min-height: 400px;
+}
+
+.container{
+    margin: 20px;
+}
+
+#option-form{
+    margin-bottom: 20px;
+}
+
+/* Add tag form */
+#option-form .ui.labels{
+    position: absolute;
+    top: 5px;
+    left: 40px;
+}
+
