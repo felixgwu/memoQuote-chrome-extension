@@ -29,8 +29,8 @@ $(document).ready(function(){
         // Use default value color = 'red' and likesColor = true.
         chrome.storage.local.get({
             setting_options: {
-                url: 'http://localhost:8000',
-                mode: 'fast',
+                url: 'http://memoquote.herokuapp.com',
+                mode: 'detail',
                 autoUrl: true
             }
         }, function(items) {

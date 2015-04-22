@@ -35,7 +35,6 @@
                 "static/css/scriptReset.css",
                 "static/Semantic-UI/components/button.min.css",
                 "static/Semantic-UI/components/label.min.css",
-                "static/Semantic-UI/components/icon.min.css",
                 "static/Semantic-UI/components/input.min.css",
                 "static/Semantic-UI/components/form.min.css",
                 "static/Semantic-UI/components/search.min.css",

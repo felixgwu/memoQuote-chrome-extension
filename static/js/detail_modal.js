@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('<div id="mqc-modal" class="hidden"><h2>Add to memoQuote</h2></div>').appendTo('body');
+    $('<div id="mqc-modal" class="hidden"></div>').appendTo('body');
     $('<p>Press <kbd>ENTER</kbd> to add, or press <kbd>ESC</kbd> to disgard.</p>').appendTo('#mqc-modal');
     var tmp = '<div>'
             + '<div id="option-form" class="ui form">'
@@ -16,6 +16,10 @@ $(document).ready(function(){
                         + '<input type="checkbox" name="public" value="public">'
                         + '<label>Allow <b>anyone</b> to see this quote.</label>'
                     + '</div>'
+                + '</div>'
+                + '<div class="required field">'
+                    + '<label>Quote</label>'
+                    + '<textarea name="text"></textarea>'
                 + '</div>'
                 + '<div class="field">'
                     + '<label>Speaker</label>'
@@ -50,20 +54,67 @@ $(document).ready(function(){
     $('.ui.checkbox').checkbox();
 
     $('#option-tag-input').on('keydown', tagInputKeyDown); // Tag input set up
+    $('.tag-search .content').on('keydown', function(e){
+        e.stopPropagation();
+    })
+    $('.tag-search').on('keydown', function(e){
+        var code = e.keyCode || e.which;
+        if (code !== 27) // 27: esc
+            e.stopPropagation();
+    })
+    $('textarea').on('keydown', function(e){
+        var code = e.keyCode || e.which;
+        if (code !== 27) // 27: esc
+            e.stopPropagation();
+    })
+
+    var quote_form_rules = {
+            text: {
+                identifier: 'text',
+                revalidate: true,
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt : 'Please enter the quote'
+                    },
+                ], // TODO: set max length
+            },
+            /*
+            referenceURL: {
+                identifier: 'referenceURL',
+                optional: true,
+                revalidate: true,
+                rules: [
+                    {
+                        type: 'url',
+                        prompt: 'Please enter a URL (don\'t forget the "http://" or "https://"'
+                    }
+                ], 
+            }  // TODO: other fields
+            */
+        };
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log(sender.tab ?  "from a content script:" + sender.tab.url : "from the extension");
-        if(!sender.tab && request.setting_options.mode === 'detail'){
+        if (sender.tab || request.setting_options.mode === 'fast' || $('#mqc-modal').transition('is visible')){
+            sendResponse(null);
+            return true;
+        } else {
             console.log(request);
             var quote = request.quote_options;
-            if (!$('#mqc-modal').transition('is visible')) {
-                $('#mqc-modal').transition('fade down');
-            }
-                console.log('out');
+            quote.text = window.getSelection().toString();
+            $('.tag-search').search({
+                source: getTagSearchContent(request.tag_list),
+                searchFields: [ 'title' ],
+                searchFullText: true,
+                maxResults: 10,
+            });
+
             fillForm($('#option-form'), quote);
             $('#option-form')
-                .form({}, {
+                .form(quote_form_rules, {
                     on: 'submit',
+                    keyboardShortcuts: false,
                     onSuccess: function(){
                         if ($('#mqc-modal').transition('is visible')) {
                             $('#mqc-modal').transition('fade down');
@@ -74,6 +125,10 @@ $(document).ready(function(){
                     }
                 })
             ;
+            // show
+            if (!$('#mqc-modal').transition('is visible')) {
+                $('#mqc-modal').transition('fade down');
+            }
             // autofocus
             if ($('#option-form [name="speaker"]').val() === '') {
                 $('#option-form [name="speaker"]').focus();
@@ -82,11 +137,15 @@ $(document).ready(function(){
             }
 
             $('#mqc-modal').on('keydown', function(e){
+                e.stopPropagation();
                 var code = e.keyCode || e.which;
-                if (code === 27) {
+                if (code === 13) {
+                    $('mqc-modal').unbind('keydown');
+                    $('#option-form').form('submit');
+                } else if (code === 27) {
                     $('mqc-modal').unbind('keydown');
                     if ($('#mqc-modal').transition('is visible')) {
-                        $('#mqc-modal').transition('scale');
+                        $('#mqc-modal').transition('hide');
                     }
                     clearForm($('#option-form'));
                     sendResponse(null);
@@ -103,10 +162,12 @@ $(document).ready(function(){
         // console.log(code);
         // console.log(e);
         
-        if(code === 13 && $(this).val() !== '' && $(this).parents('.tag-search').find('.results.visible .result').hasClass('active')){
+        if (code === 13 && $(this).val() !== '' && $(this).parents('.tag-search').find('.results.visible .result').hasClass('active')){
             e.preventDefault();
             e.stopPropagation();
-        } else if((code === 188 || code === 9 || code === 13) && $(this).val() !== '') { // 188: comma, 9: tab, 13: enter
+        } else if (code === 188 && $(this).val() === ''){ // 188: comma
+            e.preventDefault(); 
+        } else if ((code === 188 || code === 9 || code === 13) && $(this).val() !== '') { // 188: comma, 9: tab, 13: enter
             console.log('2');
             e.preventDefault(); 
             e.stopPropagation();
@@ -115,12 +176,10 @@ $(document).ready(function(){
             var tag_width = tagList.width(); 
             this.style.setProperty('padding-left', String(origin_padding + tag_width) + 'px', 'important');
             $(this).val('');
-        } else if(code === 188 && $(this).val() === ''){ // 188: comma
-            e.preventDefault(); 
-        } else if(code === 8 && $(this).val() === ''){ // 8: backspace
+        } else if (code === 8 && $(this).val() === ''){ // 8: backspace
             e.preventDefault(); 
             var prev = $(this).closest('.ui.search').find('a.ui.label').last();
-            if(prev.hasClass('yellow')){
+            if (prev.hasClass('yellow')){
                 prev.remove();
                 var tagList = $(this).closest('.ui.search').find('.ui.labels');
                 var tag_width = tagList.width();
@@ -129,30 +188,29 @@ $(document).ready(function(){
             else{
                 prev.addClass('yellow');
             }
-        } else if($(this).val() !== '' || code >= 48 && code <= 90 || code >= 96 && code <= 111 || code >= 186 && code <= 222){ // 48~90: 0~z, 96~111: numberpad 0 ~ devide, 186~222: semi-colon ~ single quote
+        } else if ($(this).val() !== '' || code >= 48 && code <= 90 || code >= 96 && code <= 111 || code >= 186 && code <= 222){ // 48~90: 0~z, 96~111: numberpad 0 ~ devide, 186~222: semi-colon ~ single quote
             var prev = $(this).closest('.ui.search').find('.ui.label').last();
             prev.removeClass('yellow');
-        } else if(code === 13 && $(this).val() !== ''){ // Press Entry when having a value does nothing
-            console.log('hi');
+        } else if (code === 13 && $(this).val() !== ''){ // Press Entry when having a value does nothing
             e.stopPropagation(); 
             e.preventDefault(); 
         }
     }
 
     function fillForm(form, object){
-        if(object.preserved){
+        if (object.preserved){
             console.log(object.preverved);
             $(form).find('.ui.checkbox input[name="preserved"]').parent().checkbox('check');
         }
 
-        if(object.public)
+        if (object.public)
             $(form).find('.ui.checkbox input[name="public"]').parent().checkbox('check');
         console.log(object);
 
         $(form).find('textarea[name="text"]').removeAttr('disabled');
         $(form).find('textarea[name="text"]').val(object['text']);
         $(form).find('input:text').each(function(index, element){
-            if(object.hasOwnProperty($(element).attr('name'))){
+            if (object.hasOwnProperty($(element).attr('name'))){
                 $(element).val(object[$(element).attr('name')]);
                 $(element).attr('placeholder', $(element).parent().find('label').text());
             }
@@ -175,8 +233,13 @@ $(document).ready(function(){
         $(form).find('input:checked').each(function(index, element){
             object[$(element).attr('name')] = true;
         });
+        $(form).find('textarea').each(function(index, element){
+            if ($(element).val() != ""){
+                object[$(element).attr('name')] = $(element).val();
+            }
+        });
         $(form).find('input:text').each(function(index, element){
-            if($(element).val() != ""){
+            if ($(element).val() != ""){
                 object[$(element).attr('name')] = $(element).val();
             }
         });
@@ -186,10 +249,10 @@ $(document).ready(function(){
         });
         var input = $(form).find('input[id$="-tag-input"]').val();
         //input = input.trim().replace(',', '');
-        if(input != ''){
+        if (input != ''){
             object.tags.push(input);
         }
-        if(object.tags === []){
+        if (object.tags === []){
             delete object.tags; 
         }
         return object;
@@ -203,6 +266,14 @@ $(document).ready(function(){
             .removeAttr('selected'); 
         $(form).find('.tag-search .ui.labels a.label').remove();
         $(form).find('.tag-search input.prompt')[0].style.setProperty('padding-left', String(origin_padding) + 'px', 'important');
+    }
+
+    function getTagSearchContent(tag_list){
+        var content = [];
+        tag_list.forEach(function(entry){
+            content.push({ title: $('<p>').text(entry.name).html() });
+        });
+        return content;
     }
 
 });

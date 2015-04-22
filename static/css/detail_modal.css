@@ -7,8 +7,9 @@
     position: fixed;
     right: 20px;
     top: 20px;
-//  width: 400px;
-//  height: 400px;
+    max-height: calc(100% - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px;
 
     // border-radius

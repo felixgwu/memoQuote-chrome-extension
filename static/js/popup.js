@@ -106,14 +106,34 @@ $(document).ready(function() {
     });
 
     load_options();
+
+    chrome.storage.local.get({tag_list: []}, function(items){
+        $('.tag-search').search({
+            source: getTagSearchContent(items.tag_list),
+            searchFields: [ 'title' ],
+            searchFullText: true,
+            maxResults: 10,
+        });
+        console.log('tag_list:');
+        console.log(tag_list);
+    });
+
+    function getTagSearchContent(tag_list){
+        var content = [];
+        tag_list.forEach(function(entry){
+            content.push({ title: $('<p>').text(entry.name).html() });
+        });
+        return content;
+    }
+
     function save_options(options){
         console.log(options); 
         chrome.storage.local.set({'quote_options': options});
     }
 
     function load_options(){
-        chrome.storage.local.get('quote_options', function(item){
-            fillForm('#option-form', item.quote_options);
+        chrome.storage.local.get('quote_options', function(items){
+            fillForm('#option-form', items.quote_options);
         });
     }
 
