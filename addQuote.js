@@ -5,8 +5,8 @@ function genericOnClick(info, tab) {
 //  console.log("item " + info.menuItemId + " was clicked");
     chrome.storage.local.get({
         setting_options: {
-            url: 'http://localhost:8000',
-            mode: 'fast',
+            url: 'http://memoquote.herokuapp.com',
+            mode: 'detail',
             autoUrl: true
         },
         quote_options: {}
@@ -40,7 +40,7 @@ function genericOnClick(info, tab) {
                 console.log(e);
                 alert('Error occur');
             }
-            if(items.setting_options.mode == 'detail'){
+            if(items.setting_options.mode === 'fast'){
                 var quote = items.quote_options;
                 if(quote.preserved)
                     delete quote.preserved;
@@ -54,14 +54,24 @@ function genericOnClick(info, tab) {
             }
             else{
                 // TODO: Add speaker or tag
-                chrome.tabs.sendMessage(tab.id, items.setting_options, function(response){
+                chrome.tabs.sendMessage(tab.id, items, function(response){
                     console.log(response);
                     console.log('back');
+                    if (response === null)
+                        return;
                     var quote = $.extend({}, response);
+                    if (quote.preserved) {
+                        chrome.storage.local.set({'quote_options': quote});
+                        delete quote.preserved;
+                    }
+                    else {
+                        chrome.storage.local.set({'quote_options': {}});
+                    }
                     quote.text = info.selectionText;
                     if(!('autoUrl' in items.setting_options) || items.setting_options.autoUrl)
                         quote.referenceURL = info.pageUrl; 
 
+                    console.log('quote:')
                     console.log(quote);
                     xhr.send(JSON.stringify(quote)); 
                 });

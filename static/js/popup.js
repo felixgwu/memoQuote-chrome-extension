@@ -2,7 +2,7 @@ $(document).ready(function() {
     console.log("Loading...");
     String.prototype.hashCode = function(){
         var hash = 0;
-        if (this.length == 0)
+        if (this.length === 0)
             return hash;
         for (i = 0; i < this.length; i++) {
             var char = this.charCodeAt(i);
@@ -13,7 +13,7 @@ $(document).ready(function() {
     }
 
     String.prototype.color = function(color_list){
-        if(color_list.length == 0)
+        if(color_list.length === 0)
             return '';
         return color_list[((this.hashCode() % color_list.length) + color_list.length) % color_list.length];
     }
@@ -29,8 +29,8 @@ $(document).ready(function() {
 
     chrome.storage.local.get({
         setting_options: {
-            url: 'http://localhost:8000',
-            mode: 'fast',
+            url: 'http://memoquote.herokuapp.com',
+            mode: 'detail',
             autoUrl: true
         },
         quote_options: {}
@@ -135,7 +135,7 @@ $(document).ready(function() {
         if(input != ''){
             object.tags.push(input);
         }
-        if(object.tags == []){
+        if(object.tags === []){
             delete object.tags; 
         }
         return object;

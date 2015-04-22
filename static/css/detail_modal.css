@@ -1,3 +1,43 @@
-#speaker input[type="text"] {
-    width: 95%;
+#mqc-modal {
+    z-index: 10000;
+    background-color: white;
+    border-color: #a0a0a0;
+    border-style: solid;
+    border-width: 2px;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+//  width: 400px;
+//  height: 400px;
+    padding: 20px;
+
+    // border-radius
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    // box-shadow
+    -webkit-box-shadow: 4px 4px 5px 0px rgba(130,130,130,0.9);
+    -moz-box-shadow: 4px 4px 5px 0px rgba(130,130,130,0.9);
+    box-shadow: 4px 4px 5px 0px rgba(130,130,130,0.9);
 }
+
+#mqc-modal input {
+    width: 400px;
+}
+
+.hidden {
+    display: none;
+}
+
+#option-form{
+    margin-bottom: 20px;
+}
+
+/* Add tag form */
+#option-form .ui.labels{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    // left: 40px;
+}
+
